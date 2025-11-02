@@ -12,7 +12,7 @@ public class Reserva {
     // Relaciones
     private Pasajero pasajero;
     private Vuelo vuelo;
-    private Vehiculo vehiculo; // Opcional
+    private Vehiculo vehiculo;
     private List<ServicioAdicional> servicios;
     private Pago pago;
     private Notificador notificador;
@@ -87,7 +87,7 @@ public class Reserva {
 
     public void cancelarReserva() {
         if (this.estado == EstadoReserva.CANCELADA) {
-             System.out.println("La reserva " + idReserva + " ya estaba cancelada.");
+            System.out.println("La reserva " + idReserva + " ya estaba cancelada.");
             return;
         }
 
@@ -116,3 +116,4 @@ public class Reserva {
     }
  
 }
+
