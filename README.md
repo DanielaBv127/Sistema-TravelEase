@@ -14,3 +14,9 @@ Evidencias de utilizacion de gestor de versiones:
 <img title="a title" alt="Alt text" src="evidencia1 (DB).png">
 <img title="a title" alt="Alt text" src="evidencia2 (DB).png">
 <img title="a title" alt="Alt text" src="evidencia3 (DB).png">
+
+- Paola Isabel Reyes Granados
+<img title="commit" alt="Alt text" src="evidencia4.1.png">
+<img title="conflicto" alt="Alt text" src="evidencia4.2.png">
+<img title="resolviendo conflicto" alt="Alt text" src="evidencia4.3.png">
+<img title="push" alt="Alt text" src="evidencia4.4.png">
