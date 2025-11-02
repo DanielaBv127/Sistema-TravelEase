@@ -1,5 +1,38 @@
 package com.espol;
+import java.util.ArrayList;
+import java.util.List;
+public class ProveedorVehiculo extends Proveedor implements IProveedor {
+    private List<Vehiculo> vehiculosOfertados;
 
-public class ProveedorVehiculo {
+    public ProveedorVehiculo(int idProveedor, String nombre) {
+        super(idProveedor, nombre, "Vehiculo");
+        this.vehiculosOfertados = new ArrayList<>();
+    }
+    
+    public void agregarVehiculo(Vehiculo vehiculo) {
+        this.vehiculosOfertados.add(vehiculo);
+    }
+
+    // Implementación de IProveedor
+    @Override
+    public void obtenerDisponibilidad() {
+        System.out.println("--- Disponibilidad de " + this.nombre + " ---");
+        for (Vehiculo v : vehiculosOfertados) {
+            // Delega la llamada al método del vehículo
+            v.obtenerDisponibilidad();
+        }
+    }
+
+    @Override
+    public void confirmarReserva() {
+        // Esta es una confirmación a nivel de proveedor
+        System.out.println("Proveedor " + this.nombre + " confirmando todas las reservas pendientes.");
+        for (Vehiculo v : vehiculosOfertados) {
+            if (v.getEstado() == EstadoVehiculo.RESERVADO) {
+                v.confirmarReserva(); // Confirma cada vehículo individual
+            }
+        }
+    }
+
     
 }

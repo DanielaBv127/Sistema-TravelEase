@@ -1,5 +1,38 @@
 package com.espol;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ProveedorAereo {
+public class ProveedorAereo extends Proveedor implements IProveedor {
+    private List<Vuelo> vuelosOfertados;
+
+    public ProveedorAereo(int idProveedor, String nombre) {
+        super(idProveedor, nombre, "Aereo");
+        this.vuelosOfertados = new ArrayList<>();
+    }
+    
+    public void agregarVuelo(Vuelo vuelo) {
+        this.vuelosOfertados.add(vuelo);
+    }
+
+    // Implementación de IProveedor
+    @Override
+    public void obtenerDisponibilidad() {
+        System.out.println("--- Disponibilidad de " + this.nombre + " ---");
+        for (Vuelo v : vuelosOfertados) {
+            // Delega la llamada al método del vuelo
+            v.obtenerDisponibilidad();
+        }
+    }
+
+    @Override
+    public void confirmarReserva() {
+        // Esta es una confirmación a nivel de proveedor
+        System.out.println("Proveedor " + this.nombre + " confirmando todas las reservas pendientes.");
+        for (Vuelo v : vuelosOfertados) {
+            if (v.getEstado() == EstadoVuelo.RESERVADO) {
+                v.confirmarReserva(); // Confirma cada vuelo individual
+            }
+        }
+    }
     
 }

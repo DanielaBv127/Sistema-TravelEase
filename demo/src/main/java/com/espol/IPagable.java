@@ -1,5 +1,5 @@
 package com.espol;
 
 public interface IPagable {
-    public void procesarPago();
+    public boolean procesarPago();
 }
