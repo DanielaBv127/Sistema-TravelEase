@@ -1,5 +1,4 @@
-import com.espol.Proveedor;
-import com.espol.Usuario;
+package com.espol;
 import java.util.ArrayList;
 import java.util.List;
 

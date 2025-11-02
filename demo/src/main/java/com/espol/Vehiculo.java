@@ -27,10 +27,19 @@ public class Vehiculo implements IReservable {
         }
         return false;
     }
+    public void confirmarReserva() {
+        if (this.estado == EstadoVehiculo.RESERVADO) {
+            this.estado = EstadoVehiculo.MANTENIMIENTO;
+            System.out.println("Vehículo " + idVehiculo + " (" + tipo + ") reserva confirmada exitosamente.");
+        } else {
+        System.out.println("Vehículo " + idVehiculo + " (" + tipo + ") no está en estado RESERVADO. Estado actual: " + this.estado);
+    }
+}
 
     // Getters
     public int getIdVehiculo() { return idVehiculo; }
     public EstadoVehiculo getEstado() { return estado; }
     public void setEstado(EstadoVehiculo estado) { this.estado = estado; }
+
 }
 

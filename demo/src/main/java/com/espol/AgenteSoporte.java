@@ -1,8 +1,4 @@
-import com.espol.Escalamiento;
-import com.espol.EstadoIncidencia;
-import com.espol.Incidencia;
-import com.espol.Proveedor;
-import com.espol.Usuario;
+package com.espol;
 
 public class AgenteSoporte extends Usuario {
 

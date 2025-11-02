@@ -1,3 +1,4 @@
+package com.espol;
 public class ServicioAdicional {
     private int idServicio;
     private String descripcion;

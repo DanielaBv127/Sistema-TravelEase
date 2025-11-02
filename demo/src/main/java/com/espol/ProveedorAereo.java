@@ -17,7 +17,7 @@ public class ProveedorAereo extends Proveedor implements IProveedor {
     // Implementación de IProveedor
     @Override
     public void obtenerDisponibilidad() {
-        System.out.println("--- Disponibilidad de " + this.nombre + " ---");
+        System.out.println("--- Disponibilidad de " + this.getNombre() + " ---");
         for (Vuelo v : vuelosOfertados) {
             // Delega la llamada al método del vuelo
             v.obtenerDisponibilidad();
@@ -27,7 +27,7 @@ public class ProveedorAereo extends Proveedor implements IProveedor {
     @Override
     public void confirmarReserva() {
         // Esta es una confirmación a nivel de proveedor
-        System.out.println("Proveedor " + this.nombre + " confirmando todas las reservas pendientes.");
+        System.out.println("Proveedor " + this.getNombre() + " confirmando todas las reservas pendientes.");
         for (Vuelo v : vuelosOfertados) {
             if (v.getEstado() == EstadoVuelo.RESERVADO) {
                 v.confirmarReserva(); // Confirma cada vuelo individual

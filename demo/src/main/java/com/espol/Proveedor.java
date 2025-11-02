@@ -18,4 +18,7 @@ public abstract class Proveedor {
     public int getIdProveedor(){
         return idProveedor;
     }
+    public String getTipoServicio(){
+        return tipoServicio;
+    }
 }

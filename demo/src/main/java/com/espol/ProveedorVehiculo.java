@@ -16,17 +16,17 @@ public class ProveedorVehiculo extends Proveedor implements IProveedor {
     // Implementación de IProveedor
     @Override
     public void obtenerDisponibilidad() {
-        System.out.println("--- Disponibilidad de " + this.nombre + " ---");
+        System.out.println("--- Disponibilidad de " + this.getNombre() + " ---");
         for (Vehiculo v : vehiculosOfertados) {
             // Delega la llamada al método del vehículo
-            v.obtenerDisponibilidad();
+            v.verificarDisponibilidad();
         }
     }
 
     @Override
     public void confirmarReserva() {
         // Esta es una confirmación a nivel de proveedor
-        System.out.println("Proveedor " + this.nombre + " confirmando todas las reservas pendientes.");
+        System.out.println("Proveedor " + this.getNombre() + " confirmando todas las reservas pendientes.");
         for (Vehiculo v : vehiculosOfertados) {
             if (v.getEstado() == EstadoVehiculo.RESERVADO) {
                 v.confirmarReserva(); // Confirma cada vehículo individual
