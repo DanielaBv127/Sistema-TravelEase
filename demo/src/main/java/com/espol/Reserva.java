@@ -1,13 +1,12 @@
 package com.espol;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-
 import com.espol.Decorator.IComponenteReserva;
 import com.espol.estados.EstadoReserva;
-import com.espol.estados.ReservaConfirmada;
 import com.espol.estados.ReservaPendiente;
+
 public class Reserva implements IComponenteReserva{
     private int idReserva;
     private Date fechaReserva;
@@ -20,7 +19,7 @@ public class Reserva implements IComponenteReserva{
     private Pasajero pasajero;
     private Vuelo vuelo;
     private Vehiculo vehiculo;
-    private List <ServicioAdicional> serviciosAdicionales = new ArrayList<>();
+    private List <ServicioAdicional> servicios = new ArrayList<>();
     private Pago pago;
     private Notificador notificador;
 
@@ -62,7 +61,6 @@ public class Reserva implements IComponenteReserva{
     
     public void notificarATodos(String mensaje) {
         notificador.notificar(mensaje);
-        pasajero.notificar(mensaje);
     }
     
     public int getIdReserva() {
@@ -114,6 +112,11 @@ public class Reserva implements IComponenteReserva{
         return "Reserva #" + idReserva + ": " + detalle;
     }
 
+    public List<ServicioAdicional> getServicios(){
+        return servicios;
+    }
+
+    public float getTotal(){
+        return total;
+    }
 }
-
-

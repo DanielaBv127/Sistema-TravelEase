@@ -20,7 +20,7 @@ public class ReservaConfirmada implements EstadoReserva {
         
         reserva.setEstado(new ReservaCancelada());
         
-        reserva.getVuelo().setEstado(EstadoVuelo.DISPONIBLE);
+        reserva.getVuelo().setEstado(new VueloDisponible());
         if (reserva.getVehiculo() != null) {
             reserva.getVehiculo().setEstado(EstadoVehiculo.DISPONIBLE);
         }

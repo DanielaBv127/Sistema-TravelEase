@@ -41,9 +41,9 @@ public class ReservaPendiente implements EstadoReserva{
         
         reserva.setEstado(new ReservaCancelada());
         
-        reserva.getVuelo().setEstado(EstadoVuelo.DISPONIBLE);
+        reserva.getVuelo().setEstado(new VueloDisponible());
         if (reserva.getVehiculo() != null) {
-            reserva.getVehiculo().setEstado(EstadoVehiculo.DISPONIBLE);
+            reserva.getVehiculo().setEstado(new VehiculoDisponible());
         }
         
         String mensaje = "Reserva " + reserva.getIdReserva() + " ha sido CANCELADA (sin penalización).";
