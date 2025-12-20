@@ -25,12 +25,20 @@ public class Pasajero extends Usuario {
             return null;
         }
 
-        if (reservable.bloquearTemporalmente()) {
-            Reserva reserva = new Reserva(idReserva, this, notificador);
-            reserva.agregarReservable(reservable);
-            return reserva;
+    }  return reserva;
+
+        // Lógica de bloqueo
+        if (vuelo.bloquearTemporalmente()) {
+            Reserva nuevaReserva = new Reserva(idReserva, this, vuelo, notificador, 100, "Wifi");
+            this.reservas.add(nuevaReserva);
+            System.out.println("Reserva " + idReserva + " en estado PENDIENTE.");
+            return nuevaReserva;
+        } else {
+            System.out.println("Error: No se pudo bloquear el vuelo.");
+            return null;
+
         }
 
         return null;
     }
-}
+
