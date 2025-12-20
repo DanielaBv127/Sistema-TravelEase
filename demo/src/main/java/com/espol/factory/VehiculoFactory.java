@@ -1,7 +1,9 @@
 package com.espol.factory;
 
-import com.espol.proveedor.*;
-import com.espol.reservable.*;
+import com.espol.IProveedor;
+import com.espol.IReservable;
+import com.espol.ProveedorVehiculo;
+import com.espol.Vehiculo;
 
 public class VehiculoFactory implements ServicioFactory {
 
@@ -11,8 +13,12 @@ public class VehiculoFactory implements ServicioFactory {
     }
 
     @Override
-    public IReservable crearReservable() {
-        ProveedorVehiculo proveedor = (ProveedorVehiculo) crearProveedor();
-        return new Vehiculo(200, "SUV", proveedor);
+    public IReservable crearReservable(IProveedor proveedor) {
+        ProveedorVehiculo prov = (ProveedorVehiculo) proveedor;
+
+        Vehiculo vehiculo = new Vehiculo(200, "SUV", prov);
+        prov.agregarVehiculo(vehiculo);
+        return vehiculo;
     }
 }
+

@@ -1,8 +1,8 @@
 package com.espol.estados;
+import com.espol.IReservable;
 import com.espol.Pago;
 import com.espol.Reserva;
 import com.espol.ServicioAdicional;
-import com.espol.Vehiculo;
 
 public class ReservaPendiente implements EstadoReserva{
     @Override
@@ -20,10 +20,10 @@ public class ReservaPendiente implements EstadoReserva{
         
         if (pago.procesarPago()) {
             reserva.setEstado(new ReservaConfirmada());
-            
-            reserva.getVuelo().confirmarReserva();
-            if (reserva.getVehiculo() != null) {
-                reserva.getVehiculo().confirmarReserva();
+
+            // Confirmación final de todos los servicios reservables
+            for (IReservable r : reserva.getReservables()) {
+                r.confirmarReserva();
             }
             
             // Notificar
@@ -41,9 +41,8 @@ public class ReservaPendiente implements EstadoReserva{
         
         reserva.setEstado(new ReservaCancelada());
         
-        reserva.getVuelo().setEstado(new VueloDisponible());
-        if (reserva.getVehiculo() != null) {
-            reserva.getVehiculo().setEstado(new VehiculoDisponible());
+        for (IReservable r : reserva.getReservables()) {
+            r.liberar();
         }
         
         String mensaje = "Reserva " + reserva.getIdReserva() + " ha sido CANCELADA (sin penalización).";
@@ -56,13 +55,19 @@ public class ReservaPendiente implements EstadoReserva{
         System.out.println("Servicio '" + servicio.getDescripcion() + "' agregado a reserva pendiente.");
     }
     
+
     @Override
-    public void agregarVehiculo(Reserva reserva, Vehiculo vehiculo) {
-        if (vehiculo.bloquearTemporalmente()) {
-            reserva.setVehiculo(vehiculo);
-            System.out.println("Vehículo " + vehiculo.getIdVehiculo() + " agregado y bloqueado.");
+    public void agregarReservable(Reserva reserva, IReservable reservable) {
+        if (reservable == null) {
+            System.out.println("Error: Servicio inválido.");
+            return;
+        }
+
+        if (reservable.bloquearTemporalmente()) {
+            reserva.getReservables().add(reservable);
+            System.out.println("Servicio agregado y bloqueado temporalmente.");
         } else {
-            System.out.println("Error: El vehículo no está disponible.");
+            System.out.println("Error: El servicio no está disponible.");
         }
     }
 }

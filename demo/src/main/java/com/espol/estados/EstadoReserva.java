@@ -1,13 +1,18 @@
 package com.espol.estados;
 
+import com.espol.IReservable;
 import com.espol.Reserva;
 import com.espol.ServicioAdicional;
-import com.espol.Vehiculo;
 
 public interface EstadoReserva {
     String getNombre();
     void confirmarPago(Reserva reserva, String metodoPago);
     void cancelar(Reserva reserva);
     void agregarServicio(Reserva reserva, ServicioAdicional servicio);
-    void agregarVehiculo(Reserva reserva, Vehiculo vehiculo);
+
+    /**
+     * Permite añadir cualquier servicio reservable (vuelo, vehículo, etc.).
+     */
+    void agregarReservable(Reserva reserva, IReservable reservable);
 }
+

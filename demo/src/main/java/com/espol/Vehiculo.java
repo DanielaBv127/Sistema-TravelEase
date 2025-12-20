@@ -1,46 +1,61 @@
 package com.espol;
+
 import com.espol.estados.EstadoVehiculo;
+import com.espol.estados.VehiculoDisponible;
+
 public class Vehiculo implements IReservable {
+
     private int idVehiculo;
     private String tipo;
-    private EstadoVehiculo estado;
+
+    private EstadoVehiculo estado; // State
     private ProveedorVehiculo proveedorVehiculo;
 
     public Vehiculo(int idVehiculo, String tipo, ProveedorVehiculo proveedor) {
         this.idVehiculo = idVehiculo;
-        this.tipo = tipo; // Ej: "SUV", "Económico"
+        this.tipo = tipo;
         this.proveedorVehiculo = proveedor;
-        this.estado = EstadoVehiculo.DISPONIBLE;
+        this.estado = new VehiculoDisponible();
     }
 
     @Override
     public boolean verificarDisponibilidad() {
-        return this.estado == EstadoVehiculo.DISPONIBLE;
+        return estado.verificarDisponibilidad();
     }
 
     @Override
     public boolean bloquearTemporalmente() {
-        if (verificarDisponibilidad()) {
-            this.estado = EstadoVehiculo.RESERVADO;
-            System.out.println("Vehículo " + idVehiculo + " ("+ tipo +") bloqueado temporalmente.");
-            return true;
-        }
-        return false;
+        return estado.bloquearTemporalmente(this);
     }
+
+    @Override
     public void confirmarReserva() {
-        if (this.estado == EstadoVehiculo.RESERVADO) {
-            this.estado = EstadoVehiculo.MANTENIMIENTO;
-            System.out.println("Vehículo " + idVehiculo + " (" + tipo + ") reserva confirmada exitosamente.");
-        } else {
-        System.out.println("Vehículo " + idVehiculo + " (" + tipo + ") no está en estado RESERVADO. Estado actual: " + this.estado);
+        estado.confirmarReserva(this);
     }
-}
 
-    // Getters
-    public int getIdVehiculo() { return idVehiculo; }
-    public EstadoVehiculo getEstado() { return estado; }
-    public void setEstado(EstadoVehiculo estado) { this.estado = estado;}
-    public String getTipo() { return tipo; }
+    @Override
+    public void liberar() {
+        this.estado = new VehiculoDisponible();
+    }
 
+    public void enviarMantenimiento() {
+        estado.enviarMantenimiento(this);
+    }
+
+    public int getIdVehiculo() {
+        return idVehiculo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public EstadoVehiculo getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoVehiculo estado) {
+        this.estado = estado;
+    }
 }
 

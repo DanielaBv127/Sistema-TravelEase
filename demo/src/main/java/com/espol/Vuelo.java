@@ -44,6 +44,12 @@ public class Vuelo implements IReservable {
         estado.cancelar(this);
     }
 
+    @Override
+    public void liberar() {
+        // Cuando se cancela una reserva, el vuelo vuelve a DISPONIBLE
+        this.estado = new VueloDisponible();
+    }
+
     // Getters / setters mínimos
     public int getIdVuelo() {
         return idVuelo;

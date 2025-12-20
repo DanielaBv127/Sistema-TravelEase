@@ -1,40 +1,44 @@
+// Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
 package com.espol;
+
+import com.espol.estados.VehiculoReservado;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import com.espol.estados.EstadoVehiculo;
 public class ProveedorVehiculo extends Proveedor implements IProveedor {
-    private List<Vehiculo> vehiculosOfertados;
+   private List<Vehiculo> vehiculosOfertados = new ArrayList();
 
-    public ProveedorVehiculo(int idProveedor, String nombre) {
-        super(idProveedor, nombre, "Vehiculo");
-        this.vehiculosOfertados = new ArrayList<>();
-    }
-    
-    public void agregarVehiculo(Vehiculo vehiculo) {
-        this.vehiculosOfertados.add(vehiculo);
-    }
+   public ProveedorVehiculo(int var1, String var2) {
+      super(var1, var2, "Vehiculo");
+   }
 
-    // Implementación de IProveedor
-    @Override
-    public void obtenerDisponibilidad() {
-        System.out.println("--- Disponibilidad de " + this.getNombre() + " ---");
-        for (Vehiculo v : vehiculosOfertados) {
-            // Delega la llamada al método del vehículo
-            v.verificarDisponibilidad();
-        }
-    }
+   public void agregarVehiculo(Vehiculo var1) {
+      this.vehiculosOfertados.add(var1);
+   }
 
-    @Override
-    public void confirmarReserva() {
-        // Esta es una confirmación a nivel de proveedor
-        System.out.println("Proveedor " + this.getNombre() + " confirmando todas las reservas pendientes.");
-        for (Vehiculo v : vehiculosOfertados) {
-            if (v.getEstado() == EstadoVehiculo.RESERVADO) {
-                v.confirmarReserva(); // Confirma cada vehículo individual
-            }
-        }
-    }
+   public void obtenerDisponibilidad() {
+      System.out.println("--- Disponibilidad de " + this.getNombre() + " ---");
+      Iterator var1 = this.vehiculosOfertados.iterator();
 
-    
+      while(var1.hasNext()) {
+         Vehiculo var2 = (Vehiculo)var1.next();
+         var2.verificarDisponibilidad();
+      }
+
+   }
+
+   public void confirmarReserva() {
+      System.out.println("Proveedor " + this.getNombre() + " confirmando todas las reservas pendientes.");
+      Iterator var1 = this.vehiculosOfertados.iterator();
+
+      while(var1.hasNext()) {
+         Vehiculo var2 = (Vehiculo)var1.next();
+         if (var2.getEstado() instanceof VehiculoReservado) {
+            var2.confirmarReserva();
+         }
+      }
+
+   }
 }
+

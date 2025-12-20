@@ -1,10 +1,14 @@
 package com.espol.factory;
 
-import com.espol.proveedor.IProveedor;
-import com.espol.reservable.IReservable;
+import com.espol.IProveedor;
+import com.espol.IReservable;
 
+/**
+ * Abstract Factory: crea una familia coherente de objetos
+ * (Proveedor + Servicio Reservable) según el tipo de servicio.
+ */
 public interface ServicioFactory {
-    com.espol.IProveedor crearProveedor();
-    IReservable crearReservable();
+    IProveedor crearProveedor();
+    IReservable crearReservable(IProveedor proveedor);
 }
 
