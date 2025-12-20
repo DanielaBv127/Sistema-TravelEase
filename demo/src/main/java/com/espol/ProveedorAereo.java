@@ -2,6 +2,8 @@ package com.espol;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.espol.estados.VueloReservado;
+
 public class ProveedorAereo extends Proveedor implements IProveedor {
     private List<Vuelo> vuelosOfertados;
 
@@ -29,7 +31,7 @@ public class ProveedorAereo extends Proveedor implements IProveedor {
         // Esta es una confirmación a nivel de proveedor
         System.out.println("Proveedor " + this.getNombre() + " confirmando todas las reservas pendientes.");
         for (Vuelo v : vuelosOfertados) {
-            if (v.getEstado() == EstadoVuelo.RESERVADO) {
+            if (v.getEstado() == new VueloReservado()) {
                 v.confirmarReserva(); // Confirma cada vuelo individual
             }
         }
