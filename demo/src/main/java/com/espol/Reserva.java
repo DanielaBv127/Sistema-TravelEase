@@ -3,12 +3,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.espol.estados.EstadoReserva;
+import com.espol.estados.ReservaConfirmada;
+import com.espol.estados.ReservaPendiente;
 public class Reserva {
     private int idReserva;
     private Date fechaReserva;
-    private EstadoReserva estado;
+    private EstadoReserva estado; // CAMBIO: Ahora es interfaz, no enum
     private float total;
-
+    
     // Relaciones
     private Pasajero pasajero;
     private Vuelo vuelo;
@@ -23,97 +26,86 @@ public class Reserva {
         this.vuelo = vuelo;
         this.notificador = notificador;
         this.fechaReserva = new Date();
-        this.estado = EstadoReserva.PENDIENTE;
+        this.estado = new ReservaPendiente(); // CAMBIO: Instancia del estado inicial
         this.servicios = new ArrayList<>();
-        this.total = 0; // Se calcula al confirmar
+        this.total = 0;
     }
 
     public void agregarServicio(ServicioAdicional servicio) {
-        if (estado != EstadoReserva.PENDIENTE) {
-            System.out.println("Error: No se pueden añadir servicios a una reserva " + estado);
-            return;
-        }
-        this.servicios.add(servicio);
-        System.out.println("Servicio '" + servicio.getDescripcion() + "' agregado.");
+        estado.agregarServicio(this, servicio);
     }
     
     public void agregarVehiculo(Vehiculo vehiculo) {
-        if (estado != EstadoReserva.PENDIENTE) {
-            System.out.println("Error: No se puede añadir vehículo a una reserva " + estado);
-            return;
-        }
-        if (vehiculo.bloquearTemporalmente()) {
-            this.vehiculo = vehiculo;
-            System.out.println("Vehículo " + vehiculo.getIdVehiculo() + " agregado y bloqueado.");
-        } else {
-            System.out.println("Error: El vehículo no está disponible.");
-        }
+        estado.agregarVehiculo(this, vehiculo);
     }
-
-    private void calcularTotal() {
+    
+    public void confirmarPago(String metodoPago) {
+        estado.confirmarPago(this, metodoPago);
+    }
+    
+    public void cancelarReserva() {
+        estado.cancelar(this);
+    }
+    public void calcularTotal() {
         float subtotal = 0;
-        // Simulación de costos
-        subtotal += 350; // Costo base vuelo
-        if (vehiculo != null) subtotal += 120; // Costo base vehiculo
-        
+        subtotal += 350;
+    
+        if (vehiculo != null) subtotal += 120;
         for (ServicioAdicional sa : servicios) {
             subtotal += sa.getCosto();
         }
+        
         this.total = subtotal;
     }
-
-    public void confirmarPago(String metodoPago) {
-        if (this.estado != EstadoReserva.PENDIENTE) {
-            System.out.println("Error: La reserva no puede ser pagada (Estado: " + this.estado + ")");
-            return;
-        }
-        
-        calcularTotal();
-        this.pago = new Pago(this.idReserva, this.total, metodoPago);
-        
-        if (pago.procesarPago()) {
-            this.estado = EstadoReserva.CONFIRMADA;
-            
-            // Confirmación final en los subsistemas
-            this.vuelo.confirmarReserva(); 
-
-            String msg = "Tu reserva " + idReserva + " ha sido CONFIRMADA. Total pagado: $" + this.total;
-            notificador.notificar(msg);
-            pasajero.notificar(msg);
-        } else {
-            System.out.println("Error: El pago falló. La reserva sigue PENDIENTE.");
-        }
+    
+    public void notificarATodos(String mensaje) {
+        notificador.notificar(mensaje);
+        pasajero.notificar(mensaje);
     }
-
-    public void cancelarReserva() {
-        if (this.estado == EstadoReserva.CANCELADA) {
-            System.out.println("La reserva " + idReserva + " ya estaba cancelada.");
-            return;
-        }
-
-        this.estado = EstadoReserva.CANCELADA;
-        
-        // Liberar recursos
-        this.vuelo.setEstado(EstadoVuelo.DISPONIBLE);
-        if (this.vehiculo != null) {
-            this.vehiculo.setEstado(EstadoVehiculo.DISPONIBLE);
-        }
-        
-        String msg = "Reserva " + idReserva + " ha sido CANCELADA.";
-        notificador.notificar(msg);
-        pasajero.notificar(msg);
-        
-        // Lógica de reembolso
-        System.out.println("Iniciando proceso de reembolso para la reserva " + idReserva + ".");
-    }
-
+    
     public int getIdReserva() {
         return idReserva;
     }
-
+    
     public EstadoReserva getEstado() {
         return estado;
     }
- 
+    
+    public void setEstado(EstadoReserva estado) {
+        System.out.println("Reserva " + idReserva + " cambió de estado: " + this.estado.getNombre() + " -> " + estado.getNombre());
+        this.estado = estado;
+    }
+    
+    public String getEstadoNombre() {
+        return estado.getNombre();
+    }
+    
+    public float getTotal() {
+        return total;
+    }
+    
+    public Vuelo getVuelo() {
+        return vuelo;
+    }
+    
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+    
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+    
+    public List<ServicioAdicional> getServicios() {
+        return servicios;
+    }
+    
+    public Pasajero getPasajero() {
+        return pasajero;
+    }
+    
+    public Notificador getNotificador() {
+        return notificador;
+    }
 }
 
