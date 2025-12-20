@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.espol.Decorator.IComponenteReserva;
 import com.espol.estados.EstadoReserva;
 import com.espol.estados.ReservaConfirmada;
 import com.espol.estados.ReservaPendiente;

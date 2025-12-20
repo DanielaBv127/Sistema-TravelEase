@@ -1,4 +1,4 @@
-package com.espol;
+package com.espol.Decorator;
 
 public interface IComponenteReserva {
     double calcularCosto();

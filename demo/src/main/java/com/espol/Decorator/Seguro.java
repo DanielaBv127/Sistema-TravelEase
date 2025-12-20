@@ -1,4 +1,4 @@
-package com.espol;
+package com.espol.Decorator;
 
 public class Seguro extends DecoradorReserva {
     private double costoSeguro = 50.00;

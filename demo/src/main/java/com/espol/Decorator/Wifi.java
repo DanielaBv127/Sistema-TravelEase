@@ -1,4 +1,4 @@
-package com.espol;
+package com.espol.Decorator;
 
 public class Wifi extends DecoradorReserva {
     private double costoWifi = 15.00;

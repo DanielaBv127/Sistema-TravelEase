@@ -1,4 +1,4 @@
-package com.espol;
+package com.espol.Decorator;
 
 public abstract class DecoradorReserva implements IComponenteReserva {
     // Referencia al objeto que estamos envolviendo (Agregación)

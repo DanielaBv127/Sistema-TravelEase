@@ -1,4 +1,4 @@
-package com.espol;
+package com.espol.Decorator;
 
 public class Equipaje extends DecoradorReserva {
     private double costoMaleta = 35.50;
