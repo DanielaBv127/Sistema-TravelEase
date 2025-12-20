@@ -2,7 +2,7 @@ package com.espol;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.espol.estados.EstadoVehiculo;
+import com.espol.estados.VehiculoReservado;
 public class ProveedorVehiculo extends Proveedor implements IProveedor {
     private List<Vehiculo> vehiculosOfertados;
 
@@ -30,11 +30,9 @@ public class ProveedorVehiculo extends Proveedor implements IProveedor {
         // Esta es una confirmación a nivel de proveedor
         System.out.println("Proveedor " + this.getNombre() + " confirmando todas las reservas pendientes.");
         for (Vehiculo v : vehiculosOfertados) {
-            if (v.getEstado() == EstadoVehiculo.RESERVADO) {
+            if (v.getEstado() instanceof VehiculoReservado) {
                 v.confirmarReserva(); // Confirma cada vehículo individual
             }
         }
     }
-
-    
 }

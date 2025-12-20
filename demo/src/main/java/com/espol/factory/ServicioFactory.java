@@ -1,10 +1,9 @@
 package com.espol.factory;
 
-import com.espol.proveedor.IProveedor;
-import com.espol.reservable.IReservable;
+import com.espol.IProveedor;
+import com.espol.IReservable;
 
 public interface ServicioFactory {
-    com.espol.IProveedor crearProveedor();
-    IReservable crearReservable();
+    IProveedor crearProveedor(int id, String nombre);
+    IReservable crearReservable(int id, IProveedor proveedor);
 }
-

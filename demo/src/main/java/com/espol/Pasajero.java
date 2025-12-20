@@ -35,4 +35,3 @@ public class Pasajero extends Usuario {
         return null;
     }
 }
-

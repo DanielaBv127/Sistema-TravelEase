@@ -1,24 +1,19 @@
 package com.espol.factory;
 
-import java.util.Date;
+import com.espol.*;
 
 public class AereoFactory implements ServicioFactory {
 
     @Override
-    public IProveedor crearProveedor() {
-        return new ProveedorAereo(1, "Aerolínea Genérica");
+    public IProveedor crearProveedor(int id, String nombre) {
+        return new ProveedorAereo(id, nombre);
     }
 
     @Override
-    public IReservable crearReservable() {
-        ProveedorAereo proveedor = (ProveedorAereo) crearProveedor();
-        return new Vuelo(
-            100,
-            "GYE",
-            "UIO",
-            new Date(),
-            ClaseAsiento.ECONOMICA,
-            proveedor
-        );
+    public IReservable crearReservable(int id, IProveedor proveedor) {
+        if(!(proveedor instanceof ProveedorAereo)){
+            throw new IllegalArgumentException("Proveedor no aéreo");
+        }
+        return new Vuelo(id, "Quito", "Guayaquil", new java.util.Date(), ClaseAsiento.ECONOMICA, (ProveedorAereo) proveedor);
     }
 }

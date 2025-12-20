@@ -1,5 +1,6 @@
 package com.espol;
 import java.util.Date;
+
 import com.espol.estados.*;
 
 public class Vuelo implements IReservable {
