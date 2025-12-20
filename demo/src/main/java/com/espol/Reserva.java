@@ -6,29 +6,29 @@ import java.util.List;
 import com.espol.estados.EstadoReserva;
 import com.espol.estados.ReservaConfirmada;
 import com.espol.estados.ReservaPendiente;
-public class Reserva {
+public class Reserva implements IComponenteReserva{
     private int idReserva;
     private Date fechaReserva;
     private EstadoReserva estado; // CAMBIO: Ahora es interfaz, no enum
-    private float total;
+    private double costoBase;
+    private String detalle; 
     
     // Relaciones
     private Pasajero pasajero;
     private Vuelo vuelo;
     private Vehiculo vehiculo;
-    private List<ServicioAdicional> servicios;
     private Pago pago;
     private Notificador notificador;
 
-    public Reserva(int idReserva, Pasajero pasajero, Vuelo vuelo, Notificador notificador) {
+    public Reserva(int idReserva, Pasajero pasajero, Vuelo vuelo, Notificador notificador, double costoBase, String detalle) {
         this.idReserva = idReserva;
         this.pasajero = pasajero;
         this.vuelo = vuelo;
         this.notificador = notificador;
         this.fechaReserva = new Date();
         this.estado = new ReservaPendiente(); // CAMBIO: Instancia del estado inicial
-        this.servicios = new ArrayList<>();
-        this.total = 0;
+        this.costoBase = costoBase;
+        this.detalle = detalle;
     }
 
     public void agregarServicio(ServicioAdicional servicio) {
@@ -46,17 +46,7 @@ public class Reserva {
     public void cancelarReserva() {
         estado.cancelar(this);
     }
-    public void calcularTotal() {
-        float subtotal = 0;
-        subtotal += 350;
     
-        if (vehiculo != null) subtotal += 120;
-        for (ServicioAdicional sa : servicios) {
-            subtotal += sa.getCosto();
-        }
-        
-        this.total = subtotal;
-    }
     
     public void notificarATodos(String mensaje) {
         notificador.notificar(mensaje);
@@ -80,9 +70,6 @@ public class Reserva {
         return estado.getNombre();
     }
     
-    public float getTotal() {
-        return total;
-    }
     
     public Vuelo getVuelo() {
         return vuelo;
@@ -96,9 +83,6 @@ public class Reserva {
         this.vehiculo = vehiculo;
     }
     
-    public List<ServicioAdicional> getServicios() {
-        return servicios;
-    }
     
     public Pasajero getPasajero() {
         return pasajero;
@@ -107,5 +91,16 @@ public class Reserva {
     public Notificador getNotificador() {
         return notificador;
     }
+
+    @Override
+    public double calcularCosto() {
+        return this.costoBase;
+    }
+
+    @Override
+    public String obtenerDescripcion() {
+        return "Reserva #" + idReserva + ": " + detalle;
+    }
+
 }
 

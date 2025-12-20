@@ -24,7 +24,7 @@ public class Pasajero extends Usuario implements INotificable {
 
         // Lógica de bloqueo
         if (vuelo.bloquearTemporalmente()) {
-            Reserva nuevaReserva = new Reserva(idReserva, this, vuelo, notificador);
+            Reserva nuevaReserva = new Reserva(idReserva, this, vuelo, notificador, 100, "Wifi");
             this.reservas.add(nuevaReserva);
             System.out.println("Reserva " + idReserva + " en estado PENDIENTE.");
             return nuevaReserva;
