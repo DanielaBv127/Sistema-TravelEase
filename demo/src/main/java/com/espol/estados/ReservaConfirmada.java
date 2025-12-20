@@ -22,7 +22,7 @@ public class ReservaConfirmada implements EstadoReserva {
         
         reserva.getVuelo().setEstado(new VueloDisponible());
         if (reserva.getVehiculo() != null) {
-            reserva.getVehiculo().setEstado(EstadoVehiculo.DISPONIBLE);
+            reserva.getVehiculo().setEstado(new VehiculoDisponible());
         }
         
         String mensaje = "Reserva " + reserva.getIdReserva() + " ha sido CANCELADA. Iniciando proceso de reembolso...";

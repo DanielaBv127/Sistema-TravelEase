@@ -31,7 +31,7 @@ public class ProveedorAereo extends Proveedor implements IProveedor {
         // Esta es una confirmación a nivel de proveedor
         System.out.println("Proveedor " + this.getNombre() + " confirmando todas las reservas pendientes.");
         for (Vuelo v : vuelosOfertados) {
-            if (v.getEstado() instanceof VueloReservado) {
+            if (v.getEstado() == new VueloReservado()) {
                 v.confirmarReserva(); // Confirma cada vuelo individual
             }
         }
