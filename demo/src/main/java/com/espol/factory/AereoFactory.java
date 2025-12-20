@@ -11,17 +11,20 @@ import com.espol.Vuelo;
 public class AereoFactory implements ServicioFactory {
 
     @Override
-    public IProveedor crearProveedor() {
-        return new ProveedorAereo(1, "Aerolínea Genérica");
+    public IProveedor crearProveedor(int id, String nombre) {
+        return new ProveedorAereo(id, nombre);
     }
 
     @Override
-    public IReservable crearReservable(IProveedor proveedor) {
-        // Garantizamos que vuelo queda asociado a un ProveedorAereo
+    public IReservable crearReservable(int id, IProveedor proveedor) {
+        if (!(proveedor instanceof ProveedorAereo)) {
+            throw new IllegalArgumentException("Proveedor no aéreo");
+        }
+
         ProveedorAereo prov = (ProveedorAereo) proveedor;
 
         Vuelo vuelo = new Vuelo(
-            100,
+            id,
             "GYE",
             "UIO",
             new Date(),
@@ -29,8 +32,9 @@ public class AereoFactory implements ServicioFactory {
             prov
         );
 
-        // El proveedor también puede llevar el histórico de oferta
+        // El proveedor mantiene la oferta de vuelos
         prov.agregarVuelo(vuelo);
+
         return vuelo;
     }
 }

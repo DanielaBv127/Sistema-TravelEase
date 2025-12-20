@@ -5,6 +5,7 @@ import com.espol.Reserva;
 import com.espol.ServicioAdicional;
 
 public class ReservaConfirmada implements EstadoReserva {
+
     @Override
     public String getNombre() {
         return "CONFIRMADA";
@@ -12,33 +13,45 @@ public class ReservaConfirmada implements EstadoReserva {
 
     @Override
     public void confirmarPago(Reserva reserva, String metodoPago) {
-        System.out.println("Error: La reserva " + reserva.getIdReserva() + " ya está CONFIRMADA. No se puede pagar nuevamente.");
+        System.out.println(
+            "Error: La reserva " + reserva.getIdReserva() +
+            " ya está CONFIRMADA. No se puede pagar nuevamente."
+        );
     }
 
     @Override
     public void cancelar(Reserva reserva) {
-        System.out.println("Cancelando reserva confirmada " + reserva.getIdReserva() + "...");
+        System.out.println(
+            "Cancelando reserva confirmada " + reserva.getIdReserva() + "..."
+        );
 
         reserva.setEstado(new ReservaCancelada());
 
-        // Liberar todos los servicios reservados
+        // Liberar todos los servicios reservados (Abstract Factory + State)
         for (IReservable r : reserva.getReservables()) {
             r.liberar();
         }
 
-        String mensaje = "Reserva " + reserva.getIdReserva() + " ha sido CANCELADA. Iniciando proceso de reembolso...";
+        String mensaje =
+            "Reserva " + reserva.getIdReserva() +
+            " ha sido CANCELADA. Iniciando proceso de reembolso...";
+
         reserva.notificarATodos(mensaje);
         System.out.println("Aplicando política de cancelación y calculando reembolso...");
     }
 
     @Override
     public void agregarServicio(Reserva reserva, ServicioAdicional servicio) {
-        System.out.println("Error: No se pueden agregar servicios a una reserva CONFIRMADA.");
+        System.out.println(
+            "Error: No se pueden agregar servicios a una reserva CONFIRMADA."
+        );
     }
 
     @Override
     public void agregarReservable(Reserva reserva, IReservable reservable) {
-        System.out.println("Error: No se puede agregar un servicio reservable a una reserva CONFIRMADA.");
+        System.out.println(
+            "Error: No se puede agregar un servicio reservable a una reserva CONFIRMADA."
+        );
         System.out.println("Debe cancelar y crear una nueva reserva.");
     }
 }

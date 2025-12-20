@@ -26,20 +26,27 @@ public class Pasajero extends Usuario {
         }
 
         // Abstract Factory crea la familia
-        IProveedor proveedor = factory.crearProveedor();
-        IReservable reservable = factory.crearReservable(proveedor);
+        IProveedor proveedor = factory.crearProveedor(1, "Proveedor genérico");
+        IReservable reservable = factory.crearReservable(1, proveedor);
 
         System.out.println("Pasajero " + nombre + " iniciando reserva para servicio... ");
-
+        
         if (!reservable.verificarDisponibilidad()) {
             System.out.println("Error: El servicio no está disponible.");
             return null;
         }
 
-        Reserva nuevaReserva = new Reserva(idReserva, this, notificador, 350, "Reserva generada con Abstract Factory");
-        nuevaReserva.agregarReservable(reservable);
+        Reserva nuevaReserva = new Reserva(
+            idReserva,
+            this,
+            notificador,
+            350,
+            "Reserva generada con Abstract Factory"
+        );
 
+        nuevaReserva.agregarReservable(reservable);
         reservas.add(nuevaReserva);
+
         System.out.println("Reserva " + idReserva + " en estado PENDIENTE.");
         return nuevaReserva;
     }
@@ -59,5 +66,4 @@ public class Pasajero extends Usuario {
         System.out.println("AVISO PARA PASAJERO (" + this.nombre + "): " + mensaje);
     }
 }
-
 

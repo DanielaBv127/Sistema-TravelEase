@@ -15,7 +15,7 @@ public class Vehiculo implements IReservable {
         this.idVehiculo = idVehiculo;
         this.tipo = tipo;
         this.proveedorVehiculo = proveedor;
-        this.estado = new VehiculoDisponible();
+        this.estado = new VehiculoDisponible(); // estado inicial
     }
 
     @Override
@@ -41,6 +41,8 @@ public class Vehiculo implements IReservable {
     public void enviarMantenimiento() {
         estado.enviarMantenimiento(this);
     }
+
+    // ===== getters / setters =====
 
     public int getIdVehiculo() {
         return idVehiculo;

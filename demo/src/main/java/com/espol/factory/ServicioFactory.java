@@ -8,7 +8,8 @@ import com.espol.IReservable;
  * (Proveedor + Servicio Reservable) según el tipo de servicio.
  */
 public interface ServicioFactory {
-    IProveedor crearProveedor();
-    IReservable crearReservable(IProveedor proveedor);
-}
 
+    IProveedor crearProveedor(int id, String nombre);
+
+    IReservable crearReservable(int id, IProveedor proveedor);
+}

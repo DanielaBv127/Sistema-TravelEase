@@ -8,16 +8,20 @@ import com.espol.Vehiculo;
 public class VehiculoFactory implements ServicioFactory {
 
     @Override
-    public IProveedor crearProveedor() {
-        return new ProveedorVehiculo(2, "RentCar Genérico");
+    public IProveedor crearProveedor(int id, String nombre) {
+        return new ProveedorVehiculo(id, nombre);
     }
 
     @Override
-    public IReservable crearReservable(IProveedor proveedor) {
-        ProveedorVehiculo prov = (ProveedorVehiculo) proveedor;
+    public IReservable crearReservable(int id, IProveedor proveedor) {
+        if (!(proveedor instanceof ProveedorVehiculo)) {
+            throw new IllegalArgumentException("Proveedor no vehicular");
+        }
 
-        Vehiculo vehiculo = new Vehiculo(200, "SUV", prov);
+        ProveedorVehiculo prov = (ProveedorVehiculo) proveedor;
+        Vehiculo vehiculo = new Vehiculo(id, "SUV", prov);
         prov.agregarVehiculo(vehiculo);
+
         return vehiculo;
     }
 }
