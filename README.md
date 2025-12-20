@@ -11,9 +11,9 @@ Evidencias de utilizacion de gestor de versiones:
 <img title="a title" alt="Alt text" src="Cambios.png">
 
 - María Daniela Bozza Villacís
-<img title="a title" alt="Alt text" src="evidencia1 (DB).png">
-<img title="a title" alt="Alt text" src="evidencia2 (DB).png">
-<img title="a title" alt="Alt text" src="evidencia3 (DB).png">
+<img title="a title" alt="Alt text" src="Evidencia 1 DB.png">
+<img title="a title" alt="Alt text" src="Evidencia 2 DB.png">
+<img title="a title" alt="Alt text" src="Evidencia 3 DB.png">
 
 - Paola Isabel Reyes Granados
 <img title="commit" alt="Alt text" src="evidencia4.1.png">
