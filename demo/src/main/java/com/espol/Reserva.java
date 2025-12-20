@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 import com.espol.Decorator.IComponenteReserva;
 import com.espol.estados.EstadoReserva;
 import com.espol.estados.ReservaConfirmada;
@@ -22,23 +23,25 @@ public class Reserva implements IComponenteReserva{
     private Notificador notificador;
 
     public Reserva(int idReserva, Pasajero pasajero, Vuelo vuelo, Notificador notificador, double costoBase, String detalle) {
+
         this.idReserva = idReserva;
-        this.pasajero = pasajero;
-        this.vuelo = vuelo;
-        this.notificador = notificador;
         this.fechaReserva = new Date();
+
         this.estado = new ReservaPendiente(); // CAMBIO: Instancia del estado inicial
         this.costoBase = costoBase;
         this.detalle = detalle;
+
     }
 
-    public void agregarServicio(ServicioAdicional servicio) {
-        estado.agregarServicio(this, servicio);
+    public void agregarReservable(IReservable reservable) {
+        if (estado != EstadoReserva.PENDIENTE) return;
+        reservables.add(reservable);
     }
-    
-    public void agregarVehiculo(Vehiculo vehiculo) {
-        estado.agregarVehiculo(this, vehiculo);
+
+    private void calcularTotal() {
+        total = reservables.size() * 200; // simulación
     }
+
     
     public void confirmarPago(String metodoPago) {
         estado.confirmarPago(this, metodoPago);
@@ -91,7 +94,7 @@ public class Reserva implements IComponenteReserva{
     
     public Notificador getNotificador() {
         return notificador;
-    }
+
 
     @Override
     public double calcularCosto() {
@@ -104,4 +107,5 @@ public class Reserva implements IComponenteReserva{
     }
 
 }
+
 
