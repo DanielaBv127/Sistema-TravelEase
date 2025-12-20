@@ -1,7 +1,4 @@
 package com.espol.estados;
-
-import com.espol.EstadoVehiculo;
-import com.espol.EstadoVuelo;
 import com.espol.Reserva;
 import com.espol.ServicioAdicional;
 import com.espol.Vehiculo;
@@ -32,7 +29,7 @@ public class ReservaConfirmada implements EstadoReserva {
         reserva.notificarATodos(mensaje);
         System.out.println("Aplicando política de cancelación y calculando reembolso...");
     }
-    
+
     @Override
     public void agregarServicio(Reserva reserva, ServicioAdicional servicio) {
         System.out.println("Error: No se pueden agregar servicios a una reserva CONFIRMADA.");

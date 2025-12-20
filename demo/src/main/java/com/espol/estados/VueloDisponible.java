@@ -1,6 +1,5 @@
 package com.espol.estados;
-
-import com.espol.reservable.Vuelo;
+import com.espol.Vuelo;
 
 public class VueloDisponible implements EstadoVuelo {
 

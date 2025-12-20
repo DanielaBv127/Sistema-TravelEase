@@ -1,8 +1,6 @@
 package com.espol.factory;
 
 import java.util.Date;
-import com.espol.proveedor.*;
-import com.espol.reservable.*;
 
 public class AereoFactory implements ServicioFactory {
 

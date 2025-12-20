@@ -1,7 +1,4 @@
 package com.espol.estados;
-
-import com.espol.EstadoVehiculo;
-import com.espol.EstadoVuelo;
 import com.espol.Pago;
 import com.espol.Reserva;
 import com.espol.ServicioAdicional;

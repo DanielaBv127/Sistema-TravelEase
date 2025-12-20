@@ -1,6 +1,8 @@
 package com.espol;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.espol.estados.EstadoVehiculo;
 public class ProveedorVehiculo extends Proveedor implements IProveedor {
     private List<Vehiculo> vehiculosOfertados;
 

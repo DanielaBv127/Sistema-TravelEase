@@ -1,8 +1,8 @@
 package com.espol;
-
+import com.espol.estados.EstadoVehiculo;
 public class Vehiculo implements IReservable {
     private int idVehiculo;
-    private String tipo; // Fiel al diagrama (String)
+    private String tipo;
     private EstadoVehiculo estado;
     private ProveedorVehiculo proveedorVehiculo;
 
@@ -39,7 +39,8 @@ public class Vehiculo implements IReservable {
     // Getters
     public int getIdVehiculo() { return idVehiculo; }
     public EstadoVehiculo getEstado() { return estado; }
-    public void setEstado(EstadoVehiculo estado) { this.estado = estado; }
+    public void setEstado(EstadoVehiculo estado) { this.estado = estado;}
+    public String getTipo() { return tipo; }
 
 }
 

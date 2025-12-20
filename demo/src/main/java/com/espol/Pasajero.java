@@ -2,11 +2,7 @@ package com.espol;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.espol.factory.ServicioFactory;
-import com.espol.reserva.Reserva;
-import com.espol.notificacion.Notificador;
-import com.espol.reservable.IReservable;
 
 public class Pasajero extends Usuario {
 
@@ -14,9 +10,7 @@ public class Pasajero extends Usuario {
         super(id, nombre, correo, contrasena);
     }
 
-    public Reserva realizarReserva(int idReserva,
-                                   ServicioFactory factory,
-                                   Notificador notificador) {
+    public Reserva realizarReserva(int idReserva,ServicioFactory factory,Notificador notificador) {
 
         IReservable reservable = factory.crearReservable();
 
@@ -24,8 +18,7 @@ public class Pasajero extends Usuario {
             System.out.println("Servicio no disponible.");
             return null;
         }
-
-    }  return reserva;
+        return reserva;
 
         // Lógica de bloqueo
         if (vuelo.bloquearTemporalmente()) {
@@ -41,4 +34,5 @@ public class Pasajero extends Usuario {
 
         return null;
     }
+}
 

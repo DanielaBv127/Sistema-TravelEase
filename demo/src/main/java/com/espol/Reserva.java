@@ -11,14 +11,16 @@ import com.espol.estados.ReservaPendiente;
 public class Reserva implements IComponenteReserva{
     private int idReserva;
     private Date fechaReserva;
-    private EstadoReserva estado; // CAMBIO: Ahora es interfaz, no enum
+    private EstadoReserva estado;
     private double costoBase;
-    private String detalle; 
+    private float total;
+    private String detalle;
     
     // Relaciones
     private Pasajero pasajero;
     private Vuelo vuelo;
     private Vehiculo vehiculo;
+    private List <ServicioAdicional> serviciosAdicionales = new ArrayList<>();
     private Pago pago;
     private Notificador notificador;
 
@@ -26,20 +28,26 @@ public class Reserva implements IComponenteReserva{
 
         this.idReserva = idReserva;
         this.fechaReserva = new Date();
-
-        this.estado = new ReservaPendiente(); // CAMBIO: Instancia del estado inicial
+        this.estado = new ReservaPendiente();
         this.costoBase = costoBase;
         this.detalle = detalle;
 
     }
 
-    public void agregarReservable(IReservable reservable) {
-        if (estado != EstadoReserva.PENDIENTE) return;
-        reservables.add(reservable);
+    public void agregarServicio(ServicioAdicional servicio) {
+        estado.agregarServicio(this, servicio);
     }
 
-    private void calcularTotal() {
-        total = reservables.size() * 200; // simulación
+    public void calcularTotal() {
+        float subtotal = 0;
+        subtotal += 350;
+        
+        if (vehiculo != null) subtotal += 120;
+        
+        for (ServicioAdicional sa : servicios) {
+            subtotal += sa.getCosto();
+        }
+        this.total = subtotal;
     }
 
     
@@ -93,7 +101,7 @@ public class Reserva implements IComponenteReserva{
     }
     
     public Notificador getNotificador() {
-        return notificador;
+        return notificador;}
 
 
     @Override
