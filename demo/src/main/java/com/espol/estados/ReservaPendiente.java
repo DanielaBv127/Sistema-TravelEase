@@ -11,7 +11,7 @@ public class ReservaPendiente implements EstadoReserva{
     }
     
     @Override
-       public void confirmarPago(Reserva reserva, String metodoPago) {
+    public void confirmarPago(Reserva reserva, String metodoPago) {
         System.out.println("Procesando pago para reserva " + reserva.getIdReserva() + "...");
 
         if (reserva.procesarPago(metodoPago)) {
@@ -30,6 +30,7 @@ public class ReservaPendiente implements EstadoReserva{
         } else {
             System.out.println("Error: El pago falló. La reserva sigue PENDIENTE.");
         }
+
     }
     
     @Override

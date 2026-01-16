@@ -9,22 +9,42 @@ public class AgenteSoporte extends Usuario {
         this.cadenaEscalamiento = null;
     }
     public void gestionarIncidencia(Incidencia incidencia) {
+        if (!validarIncidencia(incidencia)) {
+            return;
+        }
+
+        if (debeAsignarDirectamente()) {
+            asignarDirectamente(incidencia);
+            return;
+        }
+        procesarConCadena(incidencia);
+    }
+    private boolean validarIncidencia(Incidencia incidencia) {
         if (incidencia == null) {
             System.out.println("Error: No se puede gestionar una incidencia nula.");
-            return;
+            return false;
         }
-        
+
         if (incidencia.getEstadoNombre().equals("CERRADA")) {
             System.out.println("Error: No se puede gestionar una incidencia cerrada.");
-            return;
+            System.out.println("  Incidencia #" + incidencia.getIdIncidencia()
+                    + " ya fue resuelta previamente.");
+            return false;
         }
+        return true;
+    }
 
-        if (cadenaEscalamiento == null) {
-            System.out.println("Advertencia: No hay cadena de escalamiento configurada.");
-            incidencia.asignarAgente(this);
-            return;
-        }
+    private boolean debeAsignarDirectamente() {
+        return cadenaEscalamiento == null;
+    }
 
+    private void asignarDirectamente(Incidencia incidencia) {
+        System.out.println("Advertencia: No hay cadena de escalamiento configurada.");
+        System.out.println("→ Asignando incidencia directamente al agente " + this.nombre + "...");
+        incidencia.asignarAgente(this);
+    }
+
+    private void procesarConCadena(Incidencia incidencia) {
         System.out.println("Agente receptor: " + this.nombre);
         incidencia.imprimirResumen();
 
