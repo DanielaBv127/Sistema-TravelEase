@@ -35,7 +35,7 @@ public class AgenteSoporte extends Usuario {
         System.out.println("ID Incidencia: #" + incidencia.getIdIncidencia());
         System.out.println("Descripción: " + incidencia.getDescripcion());
         System.out.println("Estado actual: " + incidencia.getEstadoNombre());
-        System.out.println("Reportada por: " + incidencia.getPasajeroReporta().getNombre());
+        System.out.println("Reportada por: " + incidencia.getNombrePasajero());
         System.out.println("─".repeat(70));
 
         System.out.println("Iniciando procesamiento a través de la cadena de escalamiento...\n");
@@ -46,9 +46,10 @@ public class AgenteSoporte extends Usuario {
         System.out.println("─".repeat(70));
         System.out.println("Estado final: " + incidencia.getEstadoNombre());
         
-        if (incidencia.getAgenteAsignado() != null) {
-            System.out.println("Agente asignado: " + incidencia.getAgenteAsignado().getNombre());
+        if (incidencia.tieneAgenteAsignado()) {
+            System.out.println("Agente asignado: " + incidencia.getNombreAgenteAsignado());
         }
+
         
         if (!incidencia.getEscalamientos().isEmpty()) {
             System.out.println("Número de escalamientos: " + incidencia.getEscalamientos().size());

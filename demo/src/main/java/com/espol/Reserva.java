@@ -64,27 +64,6 @@ public class Reserva implements IComponenteReserva {
     }
 
     // ========= Lógica de negocio interna =========
-
-    public void calcularTotal() {
-        double subtotal = costoBase;
-
-        // Cada servicio adicional suma
-        for (ServicioAdicional sa : servicios) {
-            subtotal += sa.getCosto();
-        }
-
-        // Si agregaron más reservables (ej. vuelo + vehículo), se cobra una base extra por cada uno adicional
-        if (reservables.size() > 1) {
-            subtotal += 120.0 * (reservables.size() - 1);
-        }
-
-        // total se guardaba como float en tu versión; lo dejamos igual para no romper Pago
-        // (sí, es medio feo, pero funcional)
-        this.total = (float) subtotal;
-    }
-
-    private float total;
-
     public void notificarATodos(String mensaje) {
         if (notificador != null) {
             notificador.notificar(mensaje);
@@ -114,22 +93,44 @@ public class Reserva implements IComponenteReserva {
     public String getEstadoNombre() {
         return estado.getNombre();
     }
-
-    public List<IReservable> getReservables() {
-        return reservables;
+    
+    public void agregarServicioInterno(ServicioAdicional servicio) {
+        this.servicios.add(servicio);
+    }
+    
+    public void agregarReservableInterno(IReservable reservable) {
+        this.reservables.add(reservable);
     }
 
-    public List<ServicioAdicional> getServicios() {
-        return servicios;
+    public void liberarTodosLosReservables() {
+        for (IReservable r : reservables) {
+            r.liberar();
+        }
     }
+    
+    public void confirmarTodosLosReservables() {
+        for (IReservable r : reservables) {
+            r.confirmarReserva();
+        }
+    }
+
+    public int cantidadReservables() {
+        return reservables.size();
+    }
+
+
 
     public float getTotal() {
-        return total;
+        double subtotal = costoBase;
+        for (ServicioAdicional sa : servicios) {
+            subtotal += sa.getCosto();
+        }
+        if (reservables.size() > 1) {
+        subtotal += 120.0 * (reservables.size() - 1);
+        }
+        return (float) subtotal;
     }
 
-    public void setPago(Pago pago) {
-        this.pago = pago;
-    }
 
     public Pago getPago() {
         return pago;
