@@ -13,7 +13,8 @@ public class ReservaCancelada implements EstadoReserva {
 
     @Override
     public void confirmarPago(Reserva reserva, String metodoPago) {
-        System.out.println("Error: No se puede pagar una reserva CANCELADA. Debe crear una nueva reserva.");
+        System.out.println(MensajesUtil.errorReserva("confirmar pago", getNombre()));
+        System.out.println("Debe crear una nueva reserva.");
     }
 
     @Override
@@ -23,11 +24,11 @@ public class ReservaCancelada implements EstadoReserva {
 
     @Override
     public void agregarServicio(Reserva reserva, ServicioAdicional servicio) {
-        System.out.println("Error: No se pueden agregar servicios a una reserva CANCELADA.");
+        System.out.println(MensajesUtil.errorReserva("agregar servicios", getNombre()));
     }
 
     @Override
     public void agregarReservable(Reserva reserva, IReservable reservable) {
-        System.out.println("Error: No se puede agregar un servicio reservable a una reserva CANCELADA.");
+        System.out.println(MensajesUtil.errorReserva("agregar servicios reservable", getNombre()));
     }
 }
