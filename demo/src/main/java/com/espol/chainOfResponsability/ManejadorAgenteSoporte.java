@@ -13,16 +13,24 @@ public class ManejadorAgenteSoporte extends ManejadorIncidencia {
     
     @Override
     protected boolean puedeResolver(Incidencia incidencia) {
-        // El agente puede resolver incidencias simples que no requieren al proveedor
-        String desc = incidencia.getDescripcion().toLowerCase();
-        
-        // Incidencias que NO requieren proveedor (pueden ser resueltas por agente)
-        boolean esConsultaSimple = desc.contains("información") || desc.contains("horario") ||desc.contains("consulta") ||desc.contains("pregunta");
-        
-        // Incidencias que SÍ requieren proveedor (NO puede resolver el agente)
-        boolean requiereProveedor = desc.contains("vuelo cancelado") ||desc.contains("vehículo dañado") ||desc.contains("problema técnico") ||desc.contains("conflicto de horario") ||desc.contains("inconveniente");
-        
-        return esConsultaSimple && !requiereProveedor;
+    return esConsultaSimpleDelCliente(incidencia)
+            && !requiereIntervencionProveedor(incidencia);
+    }
+    private boolean esConsultaSimpleDelCliente(Incidencia incidencia) {
+    String descripcion = incidencia.getDescripcion().toLowerCase();
+    return descripcion.contains("información")
+            || descripcion.contains("horario")
+            || descripcion.contains("consulta")
+            || descripcion.contains("pregunta");
+    }
+
+    private boolean requiereIntervencionProveedor(Incidencia incidencia) {
+        String descripcion = incidencia.getDescripcion().toLowerCase();
+        return descripcion.contains("vuelo cancelado")
+                || descripcion.contains("vehículo dañado")
+                || descripcion.contains("problema técnico")
+                || descripcion.contains("conflicto de horario")
+                || descripcion.contains("inconveniente");
     }
     
     @Override
@@ -43,3 +51,4 @@ public class ManejadorAgenteSoporte extends ManejadorIncidencia {
     }   
 
 }
+
