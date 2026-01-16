@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//Sección B
+
 class FactoryTest {
 
     @Test
@@ -15,9 +17,9 @@ class FactoryTest {
         IProveedor proveedor = factory.crearProveedor(1, "LATAM");
         IReservable reservable = factory.crearReservable(100, proveedor);
 
-        assertNotNull(proveedor);
-        assertNotNull(reservable);
-        assertTrue(reservable instanceof Vuelo);
-        assertTrue(proveedor instanceof ProveedorAereo);
+        assertNotNull(proveedor);                  
+        assertNotNull(reservable);                 
+        assertInstanceOf(Vuelo.class, reservable); 
+        assertInstanceOf(ProveedorAereo.class, proveedor);
     }
 }

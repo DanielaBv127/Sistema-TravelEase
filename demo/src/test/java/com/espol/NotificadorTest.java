@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//Sección B
+
 class NotificadorTest {
 
     static class EstrategiaFake implements EstrategiaNotificacion {
@@ -23,6 +25,10 @@ class NotificadorTest {
 
         notificador.notificar("hola");
 
-        assertEquals("hola", fake.mensaje);
+        assertAll(                                  
+            () -> assertNotNull(fake.mensaje),
+            () -> assertEquals("hola", fake.mensaje) 
+        );
     }
 }
+
