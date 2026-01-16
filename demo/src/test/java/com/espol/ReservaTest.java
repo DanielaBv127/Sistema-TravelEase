@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//Sección B
+
 class ReservaTest {
 
     static class EstrategiaFake implements EstrategiaNotificacion {
@@ -14,7 +16,7 @@ class ReservaTest {
     }
 
     @Test
-    void reservaDebeIniciarEnEstadoPendiente() {
+    void reservaDebeIniciarCorrectamente() {
         Notificador notificador = new Notificador(new EstrategiaFake());
         Pasajero pasajero = new Pasajero(1, "Juan", "a@a.com", "123");
 
@@ -26,6 +28,15 @@ class ReservaTest {
                 "test"
         );
 
-        assertTrue(reserva.getEstado() instanceof ReservaPendiente);
+        assertAll(
+            () -> assertInstanceOf(ReservaPendiente.class, reserva.getEstado()),
+
+            () -> assertNotNull(reserva.getNotificador()),
+
+            () -> assertTrue(reserva.getReservables().isEmpty()),
+            () -> assertTrue(reserva.getServicios().isEmpty()),
+
+            () -> assertEquals(1, reserva.getIdReserva())
+        );
     }
 }
