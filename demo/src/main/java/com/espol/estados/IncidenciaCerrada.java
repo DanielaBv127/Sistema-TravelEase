@@ -12,12 +12,12 @@ public class IncidenciaCerrada implements EstadoIncidencia {
     
     @Override
     public void asignarAgente(Incidencia incidencia, AgenteSoporte agente) {
-        System.out.println("Error: No se puede asignar agente a una incidencia cerrada.");
+        System.out.println(MensajesUtil.errorIncidencia("asignar agente", getNombre()));
     }
     
     @Override
     public void escalar(Incidencia incidencia, Escalamiento escalamiento) {
-        System.out.println("Error: No se puede escalar una incidencia cerrada.");
+        System.out.println(MensajesUtil.errorIncidencia("escalar", getNombre()));
     }
     
     @Override

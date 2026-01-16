@@ -20,18 +20,13 @@ public class ProveedorAereo extends Proveedor implements IProveedor {
 
     @Override
     public void obtenerDisponibilidad() {
-        System.out.println("--- Disponibilidad de " + this.getNombre() + " ---");
-        for (Vuelo v : vuelosOfertados) {
-            v.obtenerDisponibilidad();
-        }
+        imprimirEncabezadoDisponibilidad();
+        vuelosOfertados.forEach(Vuelo::obtenerDisponibilidad);
     }
 
     @Override
     public void confirmarReserva() {
-        System.out.println(
-            "Proveedor " + this.getNombre() + " confirmando todas las reservas pendientes."
-        );
-
+        imprimirMensajeConfirmacion();
         for (Vuelo v : vuelosOfertados) {
             if (v.getEstado() instanceof VueloReservado) {
                 v.confirmarReserva();
