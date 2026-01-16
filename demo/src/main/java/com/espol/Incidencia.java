@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.espol.estados.EstadoIncidencia;
 import com.espol.estados.IncidenciaAbierta;
+import com.espol.estados.IncidenciaCerrada;
+import com.espol.estados.IncidenciaEnProceso;
 
 public class Incidencia {
     private int idIncidencia;
@@ -72,7 +74,21 @@ public class Incidencia {
     public void setAgenteAsignado(AgenteSoporte agenteAsignado) {
         this.agenteAsignado = agenteAsignado;
     }
-    
+
+    public void cambiarAEstadoEnProcesoConAgente(AgenteSoporte agente) {
+        this.agenteAsignado = agente;
+        this.estado = new IncidenciaEnProceso();
+    }
+
+    public void registrarEscalamientoYCambiarEstado(Escalamiento escalamiento) {
+        this.escalamientos.add(escalamiento);
+        this.estado = new IncidenciaEnProceso();
+    }
+
+    public void cerrarConAgente() {
+        this.estado = new IncidenciaCerrada();
+    }
+
     public void agregarEscalamiento(Escalamiento escalamiento) {
         this.escalamientos.add(escalamiento);
     }
@@ -97,17 +113,24 @@ public class Incidencia {
         return estado.getNombre();
     }
     
-    public AgenteSoporte getAgenteAsignado() {
-        return agenteAsignado;
-    }
-    
     public List<Escalamiento> getEscalamientos() {
         return escalamientos;
     }
-    
-    public Pasajero getPasajeroReporta() {
-        return pasajeroReporta;
+
+    public String getNombrePasajero() {
+        return pasajeroReporta.getNombre();
     }
+    
+    public String getNombreAgenteAsignado() {
+        return agenteAsignado != null ? agenteAsignado.getNombre() : "Sin asignar";
+    }
+    
+    public boolean tieneAgenteAsignado() {
+        return agenteAsignado != null;
+    }
+
+    
+    
     
     /**
      * Muestra el historial completo de escalamientos

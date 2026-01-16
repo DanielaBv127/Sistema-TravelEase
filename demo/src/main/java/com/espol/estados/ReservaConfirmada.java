@@ -28,9 +28,7 @@ public class ReservaConfirmada implements EstadoReserva {
         reserva.setEstado(new ReservaCancelada());
 
         // Liberar todos los servicios reservados (Abstract Factory + State)
-        for (IReservable r : reserva.getReservables()) {
-            r.liberar();
-        }
+        reserva.liberarTodosLosReservables();
 
         String mensaje ="Reserva " + reserva.getIdReserva()+" ha sido CANCELADA. Iniciando proceso de reembolso...";
 

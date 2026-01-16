@@ -12,17 +12,18 @@ public class IncidenciaAbierta implements EstadoIncidencia{
     
     @Override
     public void asignarAgente(Incidencia incidencia, AgenteSoporte agente) {
-        incidencia.setAgenteAsignado(agente);
-        incidencia.setEstado(new IncidenciaEnProceso());
-        System.out.println("Agente " + agente.getNombre() + " asignado a incidencia " + incidencia.getIdIncidencia());
+        incidencia.cambiarAEstadoEnProcesoConAgente(agente);
+        System.out.println("Agente " + agente.getNombre() + 
+                      " asignado a incidencia " + incidencia.getIdIncidencia());
     }
+
     
     @Override
     public void escalar(Incidencia incidencia, Escalamiento escalamiento) {
-        escalamiento.escalar();
-        incidencia.agregarEscalamiento(escalamiento);
-        incidencia.setEstado(new IncidenciaEnProceso());
-        System.out.println("Incidencia " + incidencia.getIdIncidencia() + " escalada y ahora EN PROCESO.");
+    escalamiento.escalar();
+    incidencia.registrarEscalamientoYCambiarEstado(escalamiento);
+    System.out.println("Incidencia " + incidencia.getIdIncidencia() + 
+                      " escalada y ahora EN PROCESO.");
     }
     
     @Override
