@@ -100,4 +100,8 @@ public class AgenteSoporte extends Usuario {
     public ManejadorIncidencia getCadenaEscalamiento() {
         return cadenaEscalamiento;
     }
+    
+    public void setCadenaEscalamiento(ManejadorIncidencia cadena) {
+    this.cadenaEscalamiento = cadena;
+}
 }
