@@ -1,7 +1,6 @@
 package com.espol.Decorator;
 
 public class Wifi extends DecoradorReserva {
-    private double costoWifi = 15.00;
 
     public Wifi(IComponenteReserva reservaEnvuelta) {
         super(reservaEnvuelta);
@@ -9,7 +8,7 @@ public class Wifi extends DecoradorReserva {
 
     @Override
     public double calcularCosto() {
-        return super.calcularCosto() + costoWifi;
+        return super.calcularCosto() + ConfiguracionPrecios.COSTO_KIT_WIFI_5G;
     }
 
     @Override
