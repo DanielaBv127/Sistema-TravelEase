@@ -129,7 +129,9 @@ public class Incidencia {
         return agenteAsignado != null;
     }
 
-    
+    public AgenteSoporte getAgenteAsignado(){
+        return agenteAsignado;
+    }
     
     
     /**

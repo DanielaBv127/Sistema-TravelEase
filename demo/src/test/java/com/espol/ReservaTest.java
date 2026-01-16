@@ -16,7 +16,7 @@ class ReservaTest {
     }
 
     @Test
-    void reservaDebeIniciarCorrectamente() {
+    void reservaDebeIniciarEnEstadoPendiente() {
         Notificador notificador = new Notificador(new EstrategiaFake());
         Pasajero pasajero = new Pasajero(1, "Juan", "a@a.com", "123");
 
@@ -30,13 +30,10 @@ class ReservaTest {
 
         assertAll(
             () -> assertInstanceOf(ReservaPendiente.class, reserva.getEstado()),
-
-            () -> assertNotNull(reserva.getNotificador()),
-
-            () -> assertTrue(reserva.getReservables().isEmpty()),
-            () -> assertTrue(reserva.getServicios().isEmpty()),
-
-            () -> assertEquals(1, reserva.getIdReserva())
+            () -> assertEquals("Pendiente", reserva.getEstadoNombre()),
+            () -> assertEquals(0, reserva.cantidadReservables()),
+            () -> assertEquals(100f, reserva.getTotal())
         );
     }
 }
+
