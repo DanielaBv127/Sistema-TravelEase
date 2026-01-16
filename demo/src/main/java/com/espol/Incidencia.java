@@ -24,6 +24,35 @@ public class Incidencia {
         this.escalamientos = new ArrayList<>();
         this.agenteAsignado = null; // Inicialmente sin agente
     }
+
+    public void imprimirResumen() {
+        System.out.println("\n" + "─".repeat(70));
+        System.out.println("NUEVA INCIDENCIA RECIBIDA");
+        System.out.println("─".repeat(70));
+        System.out.println("ID Incidencia: #" + idIncidencia);
+        System.out.println("Descripción: " + descripcion);
+        System.out.println("Estado actual: " + getEstadoNombre());
+        System.out.println("Reportada por: " + pasajeroReporta.getNombre());
+        System.out.println("─".repeat(70));
+    }
+
+    public void imprimirResultadoProcesamiento() {
+        System.out.println("\n" + "─".repeat(70));
+        System.out.println("✓ PROCESAMIENTO COMPLETADO");
+        System.out.println("─".repeat(70));
+        System.out.println("Estado final: " + getEstadoNombre());
+
+        if (agenteAsignado != null) {
+            System.out.println("Agente asignado: " + agenteAsignado.getNombre());
+        }
+
+        if (!escalamientos.isEmpty()) {
+            System.out.println("Número de escalamientos: " + escalamientos.size());
+        }
+
+        System.out.println("─".repeat(70) + "\n");
+    }
+
     public void registrarIncidencia() {
         System.out.println("Incidencia #" + idIncidencia + " registrada por " + pasajeroReporta.getNombre() + ". Estado: " + estado.getNombre());
     }
