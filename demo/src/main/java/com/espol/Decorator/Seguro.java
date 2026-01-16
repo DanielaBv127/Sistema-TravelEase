@@ -1,7 +1,6 @@
 package com.espol.Decorator;
 
 public class Seguro extends DecoradorReserva {
-    private double costoSeguro = 50.00;
 
     public Seguro(IComponenteReserva reservaEnvuelta) {
         super(reservaEnvuelta);
@@ -9,7 +8,7 @@ public class Seguro extends DecoradorReserva {
 
     @Override
     public double calcularCosto() {
-        return super.calcularCosto() + costoSeguro;
+        return super.calcularCosto() + ConfiguracionPrecios.COSTO_SEGURO_VIAJE;
     }
 
     @Override

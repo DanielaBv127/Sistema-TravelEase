@@ -1,6 +1,6 @@
 package com.espol;
 
-public class Pago implements IPagable {
+public class Pago {
     private int idPago;
     private float monto;
     private String metodo;
@@ -11,7 +11,6 @@ public class Pago implements IPagable {
         this.metodo = metodo;
     }
 
-    @Override
     public boolean procesarPago() {
         // Simulación de validación de pago
         if (monto > 0 && metodo != null && !metodo.isEmpty()) {
@@ -23,5 +22,4 @@ public class Pago implements IPagable {
             return false;
         }
     }
-
 }
