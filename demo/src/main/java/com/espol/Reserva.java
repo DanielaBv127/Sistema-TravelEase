@@ -46,7 +46,7 @@ public class Reserva implements IComponenteReserva {
     }
 
     public boolean procesarPago(String metodoPago) {
-        calcularTotal();
+        float total = getTotal();
 
         Pago nuevoPago = new Pago(idReserva, total, metodoPago);
         this.pago = nuevoPago;
