@@ -20,17 +20,13 @@ public class ProveedorVehiculo extends Proveedor implements IProveedor {
 
     @Override
     public void obtenerDisponibilidad() {
-        System.out.println("--- Disponibilidad de " + this.getNombre() + " ---");
-        for (Vehiculo v : vehiculosOfertados) {
-            v.verificarDisponibilidad();
-        }
+        imprimirEncabezadoDisponibilidad();
+        vehiculosOfertados.forEach(Vehiculo::verificarDisponibilidad);
     }
 
     @Override
     public void confirmarReserva() {
-        System.out.println(
-            "Proveedor " + this.getNombre() + " confirmando todas las reservas pendientes."
-        );
+        imprimirMensajeConfirmacion();
 
         for (Vehiculo v : vehiculosOfertados) {
             if (v.getEstado() instanceof VehiculoReservado) {
