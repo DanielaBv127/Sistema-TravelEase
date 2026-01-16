@@ -30,7 +30,7 @@ class ReservaTest {
 
         assertAll(
             () -> assertInstanceOf(ReservaPendiente.class, reserva.getEstado()),
-            () -> assertEquals("Pendiente", reserva.getEstadoNombre()),
+            () -> assertEquals("PENDIENTE", reserva.getEstadoNombre()),
             () -> assertEquals(0, reserva.cantidadReservables()),
             () -> assertEquals(100f, reserva.getTotal())
         );
