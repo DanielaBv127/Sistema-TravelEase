@@ -45,6 +45,15 @@ public class Reserva implements IComponenteReserva {
         this.servicios = new ArrayList<>();
     }
 
+    public boolean procesarPago(String metodoPago) {
+        calcularTotal();
+
+        Pago nuevoPago = new Pago(idReserva, total, metodoPago);
+        this.pago = nuevoPago;
+
+        return nuevoPago.procesarPago();
+    }
+
     // ========= Acciones delegadas al State =========
 
     public void agregarServicio(ServicioAdicional servicio) {
